@@ -7,7 +7,7 @@ This static site serves as the homepage for pauletlabs.co.uk, showcasing both le
 ## Features
 
 - Bold, modern design with strong typography
-- Historical 1910 Paulet Road photograph as backdrop
+- Historical Gen-AI created 1910 Paulet Road photograph as backdrop
 - SPA-like smooth navigation between sections
 - Categorized project index (Legacy / Claude Code)
 
