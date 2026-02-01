@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charlie Normand | Paulet Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #ffffff;
+      --color-bg-alt: #f8f8f8;
+      --color-text: #1a1a1a;
+      --color-text-light: #666666;
+      --color-accent: #8b6f5c;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-author {
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text);
+    }
+
+    .nav-author a {
+      text-decoration: none;
+      color: var(--color-text);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-author a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-author a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('paulet-road-1910-colour.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.78);
+      z-index: -1;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--color-text-light);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--color-text-light);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      animation: bounce 3s ease-in-out infinite;
+    }
+
+    .scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 24px;
+      background: var(--color-text-light);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    /* Sections */
+    section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    section:nth-child(odd) {
+      background: var(--color-bg-alt);
+    }
+
+    /* Legacy section - clean white */
+    #legacy {
+      background: var(--color-bg);
+    }
+
+    /* Claude Code section background */
+    #claude-code {
+      background: none;
+    }
+
+    #claude-code::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('myatts-field-1930-colour.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+
+    #claude-code::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--color-text-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    /* Project Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--color-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid transparent;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      border-color: var(--color-accent);
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card p {
+      color: var(--color-text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tags span {
+      background: var(--color-bg-alt);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-text-light);
+    }
+
+    .project-card:hover .project-tags span {
+      background: rgba(139, 111, 92, 0.1);
+      color: var(--color-accent);
+    }
+
+    /* Placeholder card */
+    .project-card.placeholder {
+      border: 2px dashed #ddd;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      color: var(--color-text-light);
+    }
+
+    .project-card.placeholder:hover {
+      border-color: var(--color-accent);
+      transform: none;
+    }
+
+    .project-card.placeholder span {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--color-text);
+      color: var(--color-bg);
+    }
+
+    footer p {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-author">Author <a href="https://www.linkedin.com/in/charlienormand/" target="_blank" rel="noopener">Charlie Normand</a></div>
+    <ul class="nav-links">
+      <li><a href="#legacy">Legacy</a></li>
+      <li><a href="#claude-code">Claude Code</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Paulet Labs</h1>
+      <p>South East London</p>
+    </div>
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <section id="legacy">
+    <div class="section-header">
+      <h2>Legacy Projects</h2>
+      <p>Earlier work and experiments from before the AI-assisted era.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card placeholder">
+        <span>+</span>
+        <p>Projects coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="claude-code">
+    <div class="section-header">
+      <h2>Claude Code Projects</h2>
+      <p>Recent projects built with AI assistance using Claude Code.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card placeholder">
+        <span>+</span>
+        <p>Projects coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Charlie Normand. Paulet Labs, South East London.</p>
+  </footer>
+
+  <script>
+    // Navigation scroll effect
+    const nav = document.querySelector('nav');
+    const hero = document.querySelector('#hero');
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.1
+    };
+
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          nav.classList.remove('scrolled');
+        } else {
+          nav.classList.add('scrolled');
+        }
+      });
+    }, observerOptions);
+
+    heroObserver.observe(hero);
+
+    // SPA-like navigation
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    // Update active link based on scroll position
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+
+          // Update URL hash without scrolling
+          if (id !== 'hero') {
+            history.replaceState(null, null, `#${id}`);
+          } else {
+            history.replaceState(null, null, window.location.pathname);
+          }
+
+          // Update active nav link
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Handle initial hash on page load
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+
+    // Smooth scroll for nav links (already handled by CSS scroll-behavior,
+    // but this ensures hash updates work correctly)
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
